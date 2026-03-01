@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "pctree"
-version = "0.0.12"
+version = "0.0.13"
 description = "Official Implementation of Principal Component Trees as referenced in the 2024 AAAI Paper 'Principal Component Trees and their Persistent Homology'"
 readme = "readme.md"
 requires-python = ">=3.11"
