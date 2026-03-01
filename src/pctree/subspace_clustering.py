@@ -245,7 +245,7 @@ class BinaryBuckshotSubspaceClusterer:
         self.eig_time_trial += t7 - t6
         self.tree_time += t8 - t7
 
-        return buck, eval_ass, np.trapz(curve_y, curve_x), smaller_prop_eval
+        return buck, eval_ass, np.trapezoid(curve_y, curve_x), smaller_prop_eval
     
     def apply_buck(self, buck: HACSubspaceClusterer, U_test: NDArray, X_test: NDArray, X_test_cov: NDArray) -> tuple[NDArray, NDArray, BinarySSClustering]:
         t0 = time()

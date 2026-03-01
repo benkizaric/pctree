@@ -1,7 +1,7 @@
 # PCTree: Principal Component Trees and their Persistent Homology
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 
 PCTree is a Python library that implements Principal Component Trees - a novel method for learning and representing hierarchical subspace structures in high-dimensional data. This approach generalizes both PCA and subspace clustering methods into a unified framework.
 
@@ -116,3 +116,146 @@ If you use PCTree in your research, please cite:
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+## Development Setup
+
+This section is for contributors and developers who want to modify or extend pctree.
+
+### Prerequisites
+
+- Python 3.11 or higher
+- Git
+
+### Option 1: Using uv (Recommended - Fast!)
+
+[uv](https://github.com/astral-sh/uv) is a blazingly fast Python package manager. This is the recommended approach for active development.
+
+```bash
+# Install uv if you don't have it
+curl -LsSf https://astral.sh/uv/install.sh | sh
+# or: pip install uv
+
+# Clone the repository
+git clone https://github.com/benkizaric/pctree.git
+cd pctree
+
+# Create environment and install dependencies (one command!)
+uv sync --extra dev
+
+# Activate the virtual environment
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+```
+
+### Option 2: Using pip + venv (Traditional)
+
+```bash
+# Clone the repository
+git clone https://github.com/benkizaric/pctree.git
+cd pctree
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install package in editable mode with dev dependencies
+pip install -e ".[dev]"
+```
+
+### Running Tests
+
+```bash
+# Run all tests
+pytest
+
+# Run with coverage report
+pytest --cov=pctree --cov-report=html
+
+# Run specific test file
+pytest tests/test_smoke.py -v
+```
+
+### Working with Jupyter Notebooks
+
+The demos are Jupyter notebooks. After installing dev dependencies, you can:
+
+```bash
+# Start JupyterLab
+jupyter lab
+
+# Or use VS Code
+# Just open a .ipynb file and select the Python interpreter from your virtual environment
+```
+
+**Important for VS Code users**: Make sure to select the correct kernel (the Python interpreter from your `.venv` or `venv` directory) when opening notebooks.
+
+### Code Quality
+
+This project uses `black` for code formatting and `ruff` for linting:
+
+```bash
+# Format code
+black src/ tests/
+
+# Lint code
+ruff check src/ tests/
+
+# Auto-fix linting issues
+ruff check --fix src/ tests/
+```
+
+### Publishing to PyPI
+
+For maintainers with PyPI credentials:
+
+```bash
+# Clean previous builds
+rm -rf dist/ build/ *.egg-info
+
+# Build distribution packages
+python -m build
+
+# Check the build
+twine check dist/*
+
+# Upload to TestPyPI (optional - for testing)
+twine upload --repository testpypi dist/*
+
+# Upload to PyPI
+twine upload dist/*
+```
+
+**Note**: Update the version number in `pyproject.toml` before publishing a new release.
+
+### Project Structure
+
+```
+pctree/
+├── src/pctree/           # Main package source code
+│   ├── core.py           # PCTree data structures
+│   ├── training.py       # Training algorithms
+│   ├── branches.py       # Branch assignment
+│   ├── io.py             # Save/load utilities
+│   └── ...
+├── tests/                # Test suite
+│   ├── test_smoke.py     # Basic functionality tests
+│   └── ...
+├── demos/                # Jupyter notebook demos
+├── data/                 # Example datasets
+├── pyproject.toml        # Project configuration and dependencies
+└── README.md             # This file
+```
+
+### Contributing
+
+Contributions are welcome! Please:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Run tests to ensure everything works (`pytest`)
+5. Format your code (`black src/ tests/`)
+6. Commit your changes (`git commit -m 'Add amazing feature'`)
+7. Push to your branch (`git push origin feature/amazing-feature`)
+8. Open a Pull Request
